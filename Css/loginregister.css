@@ -35,6 +35,10 @@ body {
         0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
+.logo {
+    color: #3961e6;
+}
+
 h2 {
 
     display: block;
