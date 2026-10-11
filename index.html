@@ -160,53 +160,5 @@
         </section>
     </main>
 
-    <script>
-        const gameGrid = document.getElementById("gameGrid");
-        const gameSearch = document.getElementById("gameSearch");
-        const resultCount = document.getElementById("resultCount");
-        const sortButtons = document.querySelectorAll(".sort-button");
-        const games = Array.from(gameGrid.querySelectorAll(".game-card"));
-        let currentSort = "date";
-
-        function updateGames() {
-            const query = gameSearch.value.toLowerCase().trim();
-            let visibleCount = 0;
-
-            games.sort((first, second) => {
-                return Number(second.dataset[currentSort]) - Number(first.dataset[currentSort]);
-            });
-
-            games.forEach((game) => {
-                game.hidden = !game.textContent.toLowerCase().includes(query);
-                if (!game.hidden) visibleCount++;
-                gameGrid.appendChild(game);
-            });
-
-            resultCount.textContent = visibleCount;
-            let emptyMessage = gameGrid.querySelector(".empty-state");
-            if (visibleCount === 0 && !emptyMessage) {
-                emptyMessage = document.createElement("p");
-                emptyMessage.className = "empty-state";
-                emptyMessage.textContent = "Không tìm thấy game phù hợp. Thử tìm với từ khóa khác nhé.";
-                gameGrid.appendChild(emptyMessage);
-            } else if (visibleCount > 0 && emptyMessage) {
-                emptyMessage.remove();
-            }
-        }
-
-        gameSearch.addEventListener("input", updateGames);
-        sortButtons.forEach((button) => {
-            button.addEventListener("click", () => {
-                currentSort = button.dataset.sort;
-                sortButtons.forEach((item) => {
-                    item.classList.remove("active");
-                    item.setAttribute("aria-pressed", "false");
-                });
-                button.classList.add("active");
-                button.setAttribute("aria-pressed", "true");
-                updateGames();
-            });
-        });
-    </script>
 </body>
 </html>
