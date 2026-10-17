@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ffffff">
-    <title>Khám phá Indie Game Việt Nam | GameX</title>
+    <title>Khám phá game miễn phí | GameX</title>
     <link rel="stylesheet" href="Css/index.css">
 </head>
 <body>
@@ -36,129 +36,30 @@
     <main>
         <section class="intro" aria-labelledby="page-title">
             <div>
-                <div class="breadcrumb">Trang chủ <span>/</span> Kho game độc lập</div>
-                <h1 id="page-title">Khám phá Indie Game Việt Nam</h1>
-                <p class="subtitle">Nơi tổng hợp các tác phẩm sáng tạo, nguyên bản từ cộng đồng lập trình viên Việt Nam và quốc tế.</p>
-            </div>
-            <div class="hot-tags" aria-label="Tags nổi bật">
-                TAGS HOT:
-                <span>#PixelArt</span>
-                <span>#KinhDị</span>
-                <span>#GameJam2025</span>
+                <div class="breadcrumb">Trang chủ <span>/</span> Kho game miễn phí</div>
+                <h1 id="page-title">Khám phá game miễn phí</h1>
+                <p class="subtitle">Khám phá các trò chơi miễn phí trên PC và trình duyệt.</p>
             </div>
         </section>
 
         <section class="catalog" aria-label="Danh sách trò chơi">
             <div class="sortbar">
-                <div class="result-count">Hiển thị <strong id="resultCount">8</strong> / <strong>128</strong> tựa game</div>
+                <div class="result-count" id="resultCount" aria-live="polite">Đang tải game...</div>
                 <div class="sort-options" aria-label="Sắp xếp trò chơi">
                     <span class="sort-label">Sắp xếp:</span>
-                    <button class="sort-button active" type="button" data-sort="date" aria-pressed="true">Mới nhất</button>
-                    <button class="sort-button" type="button" data-sort="popular" aria-pressed="false">Phổ biến nhất</button>
-                    <button class="sort-button" type="button" data-sort="downloads" aria-pressed="false">Tải nhiều</button>
-                    <button class="sort-button" type="button" data-sort="rating" aria-pressed="false">Đánh giá cao</button>
+                    <button class="sort-button active" type="button" data-sort="newest" aria-pressed="true">Mới nhất</button>
+                    <button class="sort-button" type="button" data-sort="az" aria-pressed="false">Tên A-Z</button>
+                    <button class="sort-button" type="button" data-sort="za" aria-pressed="false">Tên Z-A</button>
                 </div>
             </div>
 
-            <div class="game-grid" id="gameGrid">
-                <article class="game-card" data-title="Cửu Long Ký: Huyết Nguyệt" data-rating="4.9" data-downloads="12400" data-popular="93" data-date="8">
-                    <div class="game-cover cover-action" role="img" aria-label="Ảnh bìa game Cửu Long Ký">
-                        <span class="genre">Hành động</span><span class="price">79.000đ</span>
-                    </div>
-                    <div class="game-info">
-                        <div class="studio-rating"><span>Studio Hắc Trắng</span><span class="rating">★ 4.9</span></div>
-                        <h2>Cửu Long Ký: Huyết Nguyệt</h2>
-                        <p class="description">Game kiếm hiệp huyền bí bối cảnh miền Tây sông nước thế kỷ XIX.</p>
-                        <div class="game-meta"><span class="platforms" aria-label="Windows, macOS">▱ ▣</span><span class="downloads">⇩ 12.4k tải</span></div>
-                    </div>
-                </article>
-
-                <article class="game-card" data-title="Cyber City Zero" data-rating="4.8" data-downloads="24100" data-popular="99" data-date="7">
-                    <div class="game-cover cover-cyber" role="img" aria-label="Ảnh bìa game Cyber City Zero">
-                        <span class="genre">Cyberpunk</span><span class="price free">Miễn phí</span>
-                    </div>
-                    <div class="game-info">
-                        <div class="studio-rating"><span>PixelCraft VN</span><span class="rating">★ 4.8</span></div>
-                        <h2>Cyber City Zero</h2>
-                        <p class="description">Hành động màn hình ngang nhịp 2.5D, cuộc chiến chống lại tập đoàn.</p>
-                        <div class="game-meta"><span class="platforms" aria-label="Windows, Web">▱ ◉</span><span class="downloads">⇩ 24.1k tải</span></div>
-                    </div>
-                </article>
-
-                <article class="game-card" data-title="Forest Song" data-rating="4.7" data-downloads="8500" data-popular="78" data-date="6">
-                    <div class="game-cover cover-forest" role="img" aria-label="Ảnh bìa game Forest Song">
-                        <span class="genre">Phiêu lưu</span><span class="price">49.000đ</span>
-                    </div>
-                    <div class="game-info">
-                        <div class="studio-rating"><span>IndieX Dev</span><span class="rating">★ 4.7</span></div>
-                        <h2>Forest Song</h2>
-                        <p class="description">Hành trình giải đố giữa khu rừng cổ tích, nơi thiên nhiên và phép màu gặp nhau.</p>
-                        <div class="game-meta"><span class="platforms" aria-label="Windows, macOS, Linux">▱ ▣ ▧</span><span class="downloads">⇩ 8.5k tải</span></div>
-                    </div>
-                </article>
-
-                <article class="game-card" data-title="Neon Drifters" data-rating="4.6" data-downloads="18900" data-popular="88" data-date="5">
-                    <div class="game-cover cover-racing" role="img" aria-label="Ảnh bìa game Neon Drifters">
-                        <span class="genre">Đua xe</span><span class="price">Tùy tâm</span>
-                    </div>
-                    <div class="game-info">
-                        <div class="studio-rating"><span>RetroByte Team</span><span class="rating">★ 4.6</span></div>
-                        <h2>Neon Drifters</h2>
-                        <p class="description">Đua xe nhịp độ cao cùng kho nhạc lofi và synthwave sôi động.</p>
-                        <div class="game-meta"><span class="platforms" aria-label="Web, Android">◉ ▯</span><span class="downloads">⇩ 18.9k tải</span></div>
-                    </div>
-                </article>
-
-                <article class="game-card" data-title="Aetheria: Lost Realm" data-rating="5.0" data-downloads="15200" data-popular="90" data-date="4">
-                    <div class="game-cover cover-rpg" role="img" aria-label="Ảnh bìa game Aetheria: Lost Realm">
-                        <span class="genre">Nhập vai (RPG)</span><span class="price">129.000đ</span>
-                    </div>
-                    <div class="game-info">
-                        <div class="studio-rating"><span>Valkyrie Dev</span><span class="rating">★ 5.0</span></div>
-                        <h2>Aetheria: Lost Realm</h2>
-                        <p class="description">Khám phá lục địa nổi bị lãng quên, xây dựng tổ đội và chiến đấu.</p>
-                        <div class="game-meta"><span class="platforms" aria-label="Windows, macOS">▱ ▣</span><span class="downloads">⇩ 15.2k tải</span></div>
-                    </div>
-                </article>
-
-                <article class="game-card" data-title="Pixel Dungeon Heroes" data-rating="4.8" data-downloads="11200" data-popular="85" data-date="3">
-                    <div class="game-cover cover-pixel" role="img" aria-label="Ảnh bìa game Pixel Dungeon Heroes">
-                        <span class="genre">Pixel Art</span><span class="price free">Miễn phí</span>
-                    </div>
-                    <div class="game-info">
-                        <div class="studio-rating"><span>Nguyễn Games</span><span class="rating">★ 4.8</span></div>
-                        <h2>Pixel Dungeon Heroes</h2>
-                        <p class="description">Roguelike theo lượt ngẫu nhiên với hàng trăm trang bị phép thuật.</p>
-                        <div class="game-meta"><span class="platforms" aria-label="Windows, Linux">▱ ▧</span><span class="downloads">⇩ 11.2k tải</span></div>
-                    </div>
-                </article>
-
-                <article class="game-card" data-title="Sài Gòn 2088" data-rating="4.9" data-downloads="9800" data-popular="82" data-date="2">
-                    <div class="game-cover cover-novel" role="img" aria-label="Ảnh bìa game Sài Gòn 2088">
-                        <span class="genre">Visual Novel</span><span class="price">65.000đ</span>
-                    </div>
-                    <div class="game-info">
-                        <div class="studio-rating"><span>Saigon Dreams</span><span class="rating">★ 4.9</span></div>
-                        <h2>Sài Gòn 2088</h2>
-                        <p class="description">Trinh thám tương lai trong vai thám tử giữa đô thị ngập tràn ánh đèn.</p>
-                        <div class="game-meta"><span class="platforms" aria-label="Windows, Web">▱ ◉</span><span class="downloads">⇩ 9.8k tải</span></div>
-                    </div>
-                </article>
-
-                <article class="game-card" data-title="Echoes of Void" data-rating="4.5" data-downloads="6700" data-popular="71" data-date="1">
-                    <div class="game-cover cover-space" role="img" aria-label="Ảnh bìa game Echoes of Void">
-                        <span class="genre">Giải đố</span><span class="price">Tùy tâm</span>
-                    </div>
-                    <div class="game-info">
-                        <div class="studio-rating"><span>AstroLab Studio</span><span class="rating">★ 4.5</span></div>
-                        <h2>Echoes of Void</h2>
-                        <p class="description">Vận dụng logic để giải những bí ẩn giữa khoảng không vũ trụ.</p>
-                        <div class="game-meta"><span class="platforms" aria-label="Web, Android">◉ ▯</span><span class="downloads">⇩ 6.7k tải</span></div>
-                    </div>
-                </article>
+            <div class="game-grid" id="gameGrid" aria-live="polite">
+                <p class="message">Đang tải game...</p>
             </div>
+            <button class="load-more" id="loadMore" type="button" hidden>Tải thêm game</button>
         </section>
     </main>
 
+    <script src="Js/index.js" defer></script>
 </body>
 </html>

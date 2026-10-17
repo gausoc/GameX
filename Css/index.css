@@ -74,7 +74,8 @@ main {
     background: transparent;
 }
 
-.upload-button {
+.upload-button,
+.load-more {
     padding: 10px 14px;
     border: 0;
     border-radius: 7px;
@@ -83,17 +84,12 @@ main {
 }
 
 .intro {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 20px;
     padding: 22px 0 16px;
     border-bottom: 1px solid #e3e8ee;
 }
 
 .breadcrumb,
-.subtitle,
-.studio-rating {
+.subtitle {
     color: #718096;
 }
 
@@ -109,21 +105,6 @@ h1 {
 .subtitle {
     margin: 0;
     font-size: 14px;
-}
-
-.hot-tags {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #718096;
-    font-size: 12px;
-}
-
-.hot-tags span {
-    padding: 6px 8px;
-    border-radius: 5px;
-    background: #edf1f5;
-    color: #394455;
 }
 
 .catalog {
@@ -146,8 +127,8 @@ h1 {
     padding: 12px;
 }
 
-.result-count,
-.studio-rating {
+.result-count {
+    color: #68778a;
     font-size: 13px;
 }
 
@@ -177,75 +158,41 @@ h1 {
 
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
 }
 
 .game-card {
     overflow: hidden;
+    color: inherit;
+}
+
+.game-card a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .game-cover {
-    position: relative;
-    height: 112px;
-    background-color: #253d62;
-    background-position: center;
-    background-size: cover;
-}
-
-.cover-action { background-image: url("https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=80"); }
-.cover-cyber { background-image: url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80"); }
-.cover-forest { background-image: url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=700&q=80"); }
-.cover-racing { background-image: url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=700&q=80"); }
-.cover-rpg { background-image: url("https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=700&q=80"); }
-.cover-pixel { background-image: url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=700&q=80"); }
-.cover-novel { background-image: url("https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=80"); }
-.cover-space { background-image: url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=700&q=80"); }
-
-.genre,
-.price {
-    position: absolute;
-    top: 8px;
-    padding: 5px 7px;
-    border-radius: 5px;
-    background: white;
-    font-size: 11px;
-}
-
-.genre {
-    left: 8px;
-    background: #263244;
+    display: grid;
+    height: 150px;
+    place-items: center;
+    background: #253d62;
     color: white;
 }
 
-.price {
-    right: 8px;
-    color: #3c5ee8;
-}
-
-.price.free {
-    background: #24a253;
-    color: white;
+.game-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .game-info {
     padding: 10px;
 }
 
-.studio-rating,
-.game-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.rating {
-    color: #bd3e48;
-}
-
 .game-info h2 {
     overflow: hidden;
-    margin: 7px 0;
+    margin: 0 0 7px;
     font-size: 15px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -260,9 +207,13 @@ h1 {
     font-size: 12px;
     line-height: 1.4;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 
 .game-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
     margin-top: 9px;
     padding-top: 8px;
     border-top: 1px solid #edf0f3;
@@ -270,20 +221,31 @@ h1 {
     font-size: 11px;
 }
 
-.empty-state {
+.game-platform {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.message {
     grid-column: 1 / -1;
     padding: 30px;
     color: #718096;
     text-align: center;
 }
 
+.load-more {
+    display: block;
+    margin: 20px auto 0;
+}
+
+.load-more[hidden] {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .game-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .hot-tags {
-        display: none;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
@@ -310,7 +272,6 @@ h1 {
         display: none;
     }
 
-    .intro,
     .sortbar {
         align-items: flex-start;
         flex-direction: column;
@@ -326,7 +287,7 @@ h1 {
     }
 
     .game-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
