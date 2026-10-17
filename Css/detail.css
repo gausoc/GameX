@@ -1,0 +1,272 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f6f8fa;
+    color: #202938;
+    font-family: Arial, sans-serif;
+}
+
+a {
+    color: inherit;
+}
+
+.topbar {
+    display: flex;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 max(24px, calc((100% - 1140px) / 2));
+    background: #fff;
+    border-bottom: 1px solid #e3e8ee;
+}
+
+.brand {
+    color: #3c5ee8;
+    font-size: 22px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.close-link,
+.back-link {
+    color: #526174;
+    text-decoration: none;
+}
+
+.close-link {
+    padding: 9px 12px;
+    border: 1px solid #e3e8ee;
+    border-radius: 8px;
+}
+
+.close-link:hover,
+.back-link:hover {
+    color: #3c5ee8;
+}
+
+.close-link span {
+    margin-right: 4px;
+    font-size: 20px;
+    vertical-align: -1px;
+}
+
+.page {
+    width: min(1140px, calc(100% - 40px));
+    margin: 28px auto 56px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 18px;
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(270px, 0.8fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.detail-main,
+.detail-aside,
+.related-section {
+    overflow: hidden;
+    border: 1px solid #e3e8ee;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(32, 41, 56, 0.04);
+}
+
+.cover {
+    display: grid;
+    min-height: 260px;
+    place-items: center;
+    overflow: hidden;
+    background: #253d62;
+    color: white;
+}
+
+.cover img {
+    width: 100%;
+    max-height: 470px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.cover-fallback {
+    padding: 60px 20px;
+    font-size: 52px;
+}
+
+.detail-content {
+    padding: 24px;
+}
+
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #eef1ff;
+    color: #3c5ee8;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+h1 {
+    margin: 0 0 12px;
+    font-size: clamp(26px, 4vw, 36px);
+    line-height: 1.2;
+}
+
+.game-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    margin-bottom: 22px;
+    color: #718096;
+    font-size: 14px;
+}
+
+.description {
+    color: #526174;
+    font-size: 15px;
+    line-height: 1.75;
+    white-space: pre-line;
+}
+
+.detail-aside {
+    padding: 20px;
+}
+
+.detail-aside h2,
+.related-section h2 {
+    margin: 0 0 16px;
+    font-size: 20px;
+}
+
+.spec-list {
+    display: grid;
+    gap: 14px;
+    margin: 0 0 20px;
+}
+
+.spec-list div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.spec-list dt {
+    color: #718096;
+}
+
+.spec-list dd {
+    margin: 0;
+    text-align: right;
+    font-weight: 600;
+}
+
+.play-link {
+    display: block;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: #3c5ee8;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+}
+
+.play-link:hover {
+    background: #304bc2;
+}
+
+.related-section {
+    margin-top: 24px;
+    padding: 22px;
+}
+
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.related-card {
+    overflow: hidden;
+    border: 1px solid #e3e8ee;
+    border-radius: 9px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.related-card:hover {
+    border-color: #3c5ee8;
+}
+
+.related-card img,
+.related-cover {
+    display: grid;
+    width: 100%;
+    height: 120px;
+    place-items: center;
+    object-fit: cover;
+    background: #253d62;
+    color: white;
+}
+
+.related-card h3 {
+    overflow: hidden;
+    margin: 0;
+    padding: 10px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.status-message {
+    padding: 48px 20px;
+    color: #718096;
+    text-align: center;
+}
+
+@media (max-width: 760px) {
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .related-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .topbar {
+        padding: 0 16px;
+    }
+
+    .page {
+        width: calc(100% - 24px);
+        margin-top: 18px;
+    }
+
+    .detail-content,
+    .detail-aside,
+    .related-section {
+        padding: 16px;
+    }
+
+    .cover {
+        min-height: 190px;
+    }
+}

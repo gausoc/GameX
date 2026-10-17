@@ -11,6 +11,14 @@ let allGames = [];
 let sortBy = "newest";
 let shownGames = PAGE_SIZE;
 
+function normalizeSearchText(value) {
+    return String(value || "")
+        .toLocaleLowerCase("vi")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d");
+}
+
 function showMessage(message, showRetry = false) {
     gameGrid.replaceChildren();
 
@@ -34,9 +42,15 @@ function createGameCard(game) {
     card.className = "game-card";
 
     const link = document.createElement("a");
-    link.href = game.game_url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
+    link.href = `detail.html?id=${encodeURIComponent(game.id)}`;
+    link.addEventListener("click", () => {
+        try {
+            sessionStorage.setItem("gameX:selectedGame", JSON.stringify(game));
+            sessionStorage.setItem("gameX:games", JSON.stringify(allGames));
+        } catch (error) {
+            console.error("Không thể lưu dữ liệu game cho trang chi tiết:", error);
+        }
+    });
 
     const cover = document.createElement("div");
     cover.className = "game-cover";
@@ -82,16 +96,23 @@ function createGameCard(game) {
 }
 
 function renderGames() {
-    const query = gameSearch.value.trim().toLocaleLowerCase("vi");
+    const query = normalizeSearchText(gameSearch.value).trim().split(/\s+/).filter(Boolean);
     const matchingGames = allGames.filter((game) => {
         const searchableText = [
             game.title,
             game.short_description,
             game.platform,
-            game.publisher
-        ].join(" ").toLocaleLowerCase("vi");
+            game.publisher,
+            game.developer,
+            game.genre,
+            game.category,
+            ...(Array.isArray(game.tags) ? game.tags : [])
+        ]
+            .filter((value) => typeof value === "string")
+            .map(normalizeSearchText)
+            .join(" ");
 
-        return searchableText.includes(query);
+        return query.every((term) => searchableText.includes(term));
     });
 
     matchingGames.sort((first, second) => {
@@ -103,7 +124,10 @@ function renderGames() {
             return second.title.localeCompare(first.title);
         }
 
-        return new Date(second.release_date) - new Date(first.release_date);
+        const firstDate = Date.parse(first.release_date || "");
+        const secondDate = Date.parse(second.release_date || "");
+        return (Number.isNaN(secondDate) ? 0 : secondDate) -
+            (Number.isNaN(firstDate) ? 0 : firstDate);
     });
 
     const gamesToShow = matchingGames.slice(0, shownGames);
