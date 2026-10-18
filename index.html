@@ -28,10 +28,11 @@
             </div>
             <button class="icon-button" type="button" aria-label="Thông báo">♧</button>
             <button class="upload-button" type="button"><span aria-hidden="true">↥</span> Upload game</button>
-            <button class="profile" type="button" aria-label="Tài khoản">
+            <button class="profile" type="button" aria-label="Tài khoản" aria-controls="logoutMenu" aria-expanded="false" onclick="const menu = document.getElementById('logoutMenu'); menu.hidden = !menu.hidden; this.setAttribute('aria-expanded', String(!menu.hidden));">
                 <span class="avatar" aria-hidden="true">👨🏻‍💻</span>
                 <span aria-hidden="true">Account</span>
             </button>
+            <button id="logoutMenu" class="logout-menu" type="button" hidden onclick="window.location.href = 'login.html'">Đăng xuất</button>
         </div>
     </header>
 
