@@ -1,3 +1,4 @@
+/* Căn giữa biểu mẫu và phủ nền ảnh bằng lớp tối để tăng độ tương phản. */
 body {
  font-family: Arial, sans-serif;
 
@@ -21,6 +22,7 @@ body {
     background-position: center;
 }
 
+/* Hộp nội dung chính dùng chung cho màn hình đăng nhập và đăng ký. */
 .container {
 
     width: 360px;
@@ -35,6 +37,7 @@ body {
         0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Nhấn mạnh thương hiệu và tiêu đề các trường nhập. */
 .logo {
     color: #3961e6;
 }
@@ -50,6 +53,7 @@ h2 {
     font-weight: bold;
 } 
 
+/* Kiểu dáng chung cho các trường nhập và trạng thái đang được chọn. */
 input {
 
     width: 95%;
@@ -70,6 +74,7 @@ input:focus {
     border-color: #3961e6;
 }
 
+/* Nút gửi biểu mẫu và phản hồi khi rê chuột. */
 button {
 
     width: 100%;

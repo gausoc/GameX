@@ -1,3 +1,4 @@
+// Cấu hình API và các khóa sessionStorage dùng chung với trang danh sách.
 const API_URL = "https://www.mmobomb.com/api1/game";
 const selectedGameKey = "gameX:selectedGame";
 const gamesKey = "gameX:games";
@@ -5,6 +6,7 @@ const gamesKey = "gameX:games";
 const detailsContainer = document.getElementById("gameDetails");
 const gameId = new URLSearchParams(window.location.search).get("id");
 
+// Tạo phần tử DOM và gán nội dung dạng văn bản an toàn.
 function createElement(tag, className, text) {
     const element = document.createElement(tag);
     if (className) element.className = className;
@@ -12,6 +14,7 @@ function createElement(tag, className, text) {
     return element;
 }
 
+// Đọc dữ liệu game trong sessionStorage; báo lỗi nếu dữ liệu không hợp lệ.
 function getStoredGame(key) {
     try {
         const storedValue = sessionStorage.getItem(key);
@@ -22,6 +25,7 @@ function getStoredGame(key) {
     }
 }
 
+// Hiển thị ngày theo định dạng tiếng Việt, giữ nguyên giá trị nếu không phân tích được.
 function formatDate(value) {
     if (!value) return "Chưa cập nhật";
     const date = new Date(value);
@@ -30,6 +34,7 @@ function formatDate(value) {
         : date.toLocaleDateString("vi-VN");
 }
 
+// Tạo ảnh bìa khi URL hợp lệ; dùng biểu tượng thay thế nếu ảnh không tải được.
 function createCover(game) {
     const cover = createElement("div", "cover");
     if (typeof game.thumbnail === "string" && game.thumbnail.startsWith("https://")) {
@@ -47,6 +52,7 @@ function createCover(game) {
     return cover;
 }
 
+// Tạo tối đa bốn thẻ game liên quan từ danh sách đã lưu ở trang trước.
 function renderRelatedGames(currentGame) {
     const games = getStoredGame(gamesKey);
     if (!Array.isArray(games)) return null;
@@ -89,6 +95,7 @@ function renderRelatedGames(currentGame) {
     return section;
 }
 
+// Hiển thị thông tin chính, thông số và liên kết mở trang game.
 function renderGame(game) {
     document.title = `${game.title} | GameX`;
     detailsContainer.replaceChildren();
@@ -151,6 +158,7 @@ function renderGame(game) {
     if (relatedSection) detailsContainer.appendChild(relatedSection);
 }
 
+// Ưu tiên dữ liệu đã lưu; nếu thiếu thì lấy thông tin game trực tiếp từ API.
 async function loadGameDetails() {
     if (!gameId) {
         detailsContainer.replaceChildren(createElement(

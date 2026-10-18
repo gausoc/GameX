@@ -1,3 +1,4 @@
+/* Thiết lập nền, màu chữ và kiểu chữ mặc định cho trang chi tiết. */
 * {
     box-sizing: border-box;
 }
@@ -13,6 +14,7 @@ a {
     color: inherit;
 }
 
+/* Thanh đầu trang và các liên kết điều hướng quay về danh sách. */
 .topbar {
     display: flex;
     min-height: 64px;
@@ -53,6 +55,7 @@ a {
     vertical-align: -1px;
 }
 
+/* Giới hạn chiều rộng nội dung và chia bố cục chi tiết thành hai cột. */
 .page {
     width: min(1140px, calc(100% - 40px));
     margin: 28px auto 56px;
@@ -70,6 +73,7 @@ a {
     align-items: start;
 }
 
+/* Thẻ nội dung chính, ảnh bìa và phần thông tin tổng quan. */
 .detail-main,
 .detail-aside,
 .related-section {
@@ -105,6 +109,7 @@ a {
     padding: 24px;
 }
 
+/* Nhãn thể loại/nền tảng và siêu dữ liệu phát hành. */
 .badges {
     display: flex;
     flex-wrap: wrap;
@@ -143,6 +148,7 @@ h1 {
     white-space: pre-line;
 }
 
+/* Bảng thông số game và liên kết mở trang game bên ngoài. */
 .detail-aside {
     padding: 20px;
 }
@@ -191,6 +197,7 @@ h1 {
     background: #304bc2;
 }
 
+/* Lưới gợi ý game liên quan và trạng thái đang tải/lỗi. */
 .related-section {
     margin-top: 24px;
     padding: 22px;
@@ -240,6 +247,7 @@ h1 {
     text-align: center;
 }
 
+/* Chuyển bố cục sang một cột trên màn hình nhỏ hơn. */
 @media (max-width: 760px) {
     .detail-layout {
         grid-template-columns: 1fr;
@@ -250,6 +258,7 @@ h1 {
     }
 }
 
+/* Thu gọn khoảng cách và ảnh bìa trên điện thoại nhỏ. */
 @media (max-width: 480px) {
     .topbar {
         padding: 0 16px;

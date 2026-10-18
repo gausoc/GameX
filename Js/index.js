@@ -1,6 +1,8 @@
+// API danh sách game và số thẻ hiển thị trong mỗi lần tải.
 const API_URL = "https://www.mmobomb.com/api1/games";
 const PAGE_SIZE = 24;
 
+// Các phần tử giao diện cần cập nhật khi tìm kiếm, sắp xếp hoặc tải dữ liệu.
 const gameGrid = document.getElementById("gameGrid");
 const gameSearch = document.getElementById("gameSearch");
 const resultCount = document.getElementById("resultCount");
@@ -11,6 +13,7 @@ let allGames = [];
 let sortBy = "newest";
 let shownGames = PAGE_SIZE;
 
+// Chuẩn hóa chữ tiếng Việt để tìm kiếm không phân biệt dấu và chữ hoa/thường.
 function normalizeSearchText(value) {
     return String(value || "")
         .toLocaleLowerCase("vi")
@@ -19,6 +22,7 @@ function normalizeSearchText(value) {
         .replace(/đ/g, "d");
 }
 
+// Hiển thị trạng thái danh sách và tùy chọn tạo nút thử tải lại.
 function showMessage(message, showRetry = false) {
     gameGrid.replaceChildren();
 
@@ -37,6 +41,7 @@ function showMessage(message, showRetry = false) {
     }
 }
 
+// Tạo thẻ game và lưu dữ liệu hiện tại trước khi điều hướng đến trang chi tiết.
 function createGameCard(game) {
     const card = document.createElement("article");
     card.className = "game-card";
@@ -95,6 +100,7 @@ function createGameCard(game) {
     return card;
 }
 
+// Lọc theo mọi trường tìm kiếm, sắp xếp kết quả và cập nhật phần danh sách đang thấy.
 function renderGames() {
     const query = normalizeSearchText(gameSearch.value).trim().split(/\s+/).filter(Boolean);
     const matchingGames = allGames.filter((game) => {
@@ -140,6 +146,7 @@ function renderGames() {
     }
 }
 
+// Lấy dữ liệu game từ API, kiểm tra định dạng và hiển thị lỗi có thể thử lại.
 async function loadGames() {
     resultCount.textContent = "Đang tải game...";
     loadMoreButton.hidden = true;
@@ -180,11 +187,13 @@ async function loadGames() {
     }
 }
 
+// Mỗi lần tìm kiếm bắt đầu hiển thị lại từ trang kết quả đầu tiên.
 gameSearch.addEventListener("input", () => {
     shownGames = PAGE_SIZE;
     renderGames();
 });
 
+// Cập nhật trạng thái điều khiển sắp xếp rồi dựng lại danh sách.
 sortButtons.forEach((button) => {
     button.addEventListener("click", () => {
         sortBy = button.dataset.sort;
@@ -200,9 +209,11 @@ sortButtons.forEach((button) => {
     });
 });
 
+// Mở rộng số lượng kết quả hiển thị theo từng đợt.
 loadMoreButton.addEventListener("click", () => {
     shownGames += PAGE_SIZE;
     renderGames();
 });
 
+// Tải danh sách lần đầu khi script khởi chạy.
 loadGames();

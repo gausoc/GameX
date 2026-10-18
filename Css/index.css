@@ -1,7 +1,9 @@
+/* Quy tắc nền tảng giúp kích thước phần tử bao gồm cả padding và border. */
 * {
     box-sizing: border-box;
 }
 
+/* Kiểu chữ, màu sắc chung và kiểu điều khiển cơ bản. */
 body {
     margin: 0;
     background: #f6f8fa;
@@ -18,6 +20,7 @@ button {
     cursor: pointer;
 }
 
+/* Thanh điều hướng và giới hạn chiều rộng nội dung chính. */
 .topbar {
     background: white;
     border-bottom: 1px solid #e3e8ee;
@@ -36,6 +39,7 @@ main {
     gap: 20px;
 }
 
+/* Ô tìm kiếm, nút tài khoản và các nút thao tác đầu trang. */
 .brand {
     color: #3c5ee8;
     font-size: 22px;
@@ -83,6 +87,7 @@ main {
     color: white;
 }
 
+/* Phần giới thiệu trang và đường dẫn phân cấp. */
 .intro {
     padding: 22px 0 16px;
     border-bottom: 1px solid #e3e8ee;
@@ -111,6 +116,7 @@ h1 {
     padding: 20px 0 40px;
 }
 
+/* Bộ đếm kết quả và điều khiển sắp xếp. */
 .sortbar,
 .game-card {
     border: 1px solid #e3e8ee;
@@ -156,6 +162,7 @@ h1 {
     color: white;
 }
 
+/* Lưới thẻ game cùng nội dung ảnh, mô tả và thông tin phụ. */
 .game-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -227,6 +234,7 @@ h1 {
     white-space: nowrap;
 }
 
+/* Trạng thái thông báo và nút tải thêm kết quả. */
 .message {
     grid-column: 1 / -1;
     padding: 30px;
@@ -243,12 +251,14 @@ h1 {
     display: none;
 }
 
+/* Điều chỉnh số cột danh sách cho máy tính bảng. */
 @media (max-width: 900px) {
     .game-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
+/* Sắp xếp lại thanh công cụ và lưới trên màn hình điện thoại. */
 @media (max-width: 650px) {
     .topbar-inner {
         flex-wrap: wrap;
@@ -291,6 +301,7 @@ h1 {
     }
 }
 
+/* Hiển thị một cột game trên thiết bị có chiều ngang rất hẹp. */
 @media (max-width: 380px) {
     .game-grid {
         grid-template-columns: 1fr;

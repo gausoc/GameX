@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <!-- Thiết lập bảng mã, khả năng hiển thị responsive và màu thanh trình duyệt. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#ffffff">
     <title>Khám phá game miễn phí | GameX</title>
+    <!-- Kiểu dáng và mã xử lý danh sách game của trang khám phá. -->
     <link rel="stylesheet" href="Css/index.css">
 </head>
 <body>
+    <!-- Thanh điều hướng chính, ô tìm kiếm và các thao tác tài khoản. -->
     <header class="topbar">
         <div class="topbar-inner">
             <a class="brand" href="#" aria-label="GameX trang chủ">
@@ -33,6 +36,7 @@
     </header>
 
     <main>
+        <!-- Phần giới thiệu tiêu đề và nội dung của trang khám phá. -->
         <section class="intro" aria-labelledby="page-title">
             <div>
                 <div class="breadcrumb">Trang chủ <span>/</span> Kho game miễn phí</div>
@@ -41,6 +45,7 @@
             </div>
         </section>
 
+        <!-- Khu vực danh sách game, tùy chọn sắp xếp và nút tải thêm. -->
         <section class="catalog" aria-label="Danh sách trò chơi">
             <div class="sortbar">
                 <div class="result-count" id="resultCount" aria-live="polite">Đang tải game...</div>
@@ -59,6 +64,7 @@
         </section>
     </main>
 
+    <!-- defer để tải script mà không chặn việc phân tích HTML. -->
     <script src="Js/index.js" defer></script>
 </body>
 </html>
