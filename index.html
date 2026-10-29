@@ -27,7 +27,7 @@
                 <input id="gameSearch" type="search" placeholder="Tìm kiếm game..." aria-label="Tìm kiếm game">
             </div>
             <button class="icon-button" type="button" aria-label="Thông báo">♧</button>
-            <button class="upload-button" type="button"><span aria-hidden="true">↥</span> Upload game</button>
+            <a class="upload-button" href="upload.html" aria-label="Tải lên game"><span aria-hidden="true">↥</span> Upload game</a>
             <button class="profile" type="button" aria-label="Tài khoản" aria-controls="logoutMenu" aria-expanded="false" onclick="const menu = document.getElementById('logoutMenu'); menu.hidden = !menu.hidden; this.setAttribute('aria-expanded', String(!menu.hidden));">
                 <span class="avatar" aria-hidden="true">👨🏻‍💻</span>
                 <span aria-hidden="true">Account</span>
@@ -61,11 +61,21 @@
             <div class="game-grid" id="gameGrid" aria-live="polite">
                 <p class="message">Đang tải game...</p>
             </div>
-            <button class="load-more" id="loadMore" type="button" hidden>Tải thêm game</button>
+            <button class="load-more" id="loadMore" type="button" hidden>Tải thêm game</button> 
         </section>
     </main>
 
     <!-- defer để tải script mà không chặn việc phân tích HTML. -->
     <script src="Js/index.js" defer></script>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <a class="brand" href="#" aria-label="GameX trang chủ">
+                <span class="brand-icon" aria-hidden="true">🎮</span>
+                <span>GameX</span>
+            </a>
+            <p>Khám phá và trải nghiệm những trò chơi miễn phí thú vị.</p>
+            <small>2025 mmoBomb. Bảo lưu mọi quyền.</small>
+        </div>
+    </footer>
 </body>
 </html>
