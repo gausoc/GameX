@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>Upload game | GameX</title>
+    <link rel="stylesheet" href="Css/upload.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="index.html" aria-label="GameX trang chủ">
+                <span aria-hidden="true">🎮</span>
+                <span>GameX</span>
+            </a>
+            <nav class="nav-links" aria-label="Điều hướng chính">
+                <a href="index.html">Khám phá</a>
+                <a href="#">Cộng đồng</a>
+                <a class="active" href="upload.html">Devs</a>
+            </nav>
+            <div class="topbar-actions">
+                <a class="back-link" href="index.html">← Về kho game</a>
+                <button class="profile" type="button" aria-label="Tài khoản">
+                    <span class="avatar" aria-hidden="true">👨🏻‍💻</span>
+                    <span>Account</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-heading" aria-labelledby="page-title">
+            <p class="breadcrumb">Trang chủ <span>/</span> Devs <span>/</span> Upload game</p>
+            <h1 id="page-title">Đưa game của bạn lên GameX</h1>
+            <p>Chia sẻ trò chơi của bạn với cộng đồng GameX. Điền thông tin bên dưới để bắt đầu.</p>
+        </section>
+
+        <form class="upload-layout" id="uploadForm" novalidate>
+            <section class="form-card" aria-labelledby="game-info-title">
+                <div class="card-heading">
+                    <span class="step">01</span>
+                    <div>
+                        <h2 id="game-info-title">Thông tin game</h2>
+                        <p>Giới thiệu những điểm nổi bật của trò chơi.</p>
+                    </div>
+                </div>
+
+                <label for="gameName">Tên game <span>*</span></label>
+                <input id="gameName" name="gameName" type="text" maxlength="60" placeholder="Ví dụ: Pixel Adventure" required>
+
+                <label for="gameDescription">Mô tả <span>*</span></label>
+                <textarea id="gameDescription" name="gameDescription" rows="5" maxlength="500" placeholder="Mô tả ngắn về lối chơi, mục tiêu và điều làm game của bạn đặc biệt..." required></textarea>
+                <div class="field-meta"><span id="descriptionHint">Tối thiểu 20 ký tự</span><span id="characterCount">0/500</span></div>
+
+                <div class="field-row">
+                    <div>
+                        <label for="category">Thể loại <span>*</span></label>
+                        <select id="category" name="category" required>
+                            <option value="">Chọn thể loại</option>
+                            <option>Hành động</option>
+                            <option>Phiêu lưu</option>
+                            <option>Giải đố</option>
+                            <option>Chiến thuật</option>
+                            <option>Nhập vai</option>
+                            <option>Thể thao</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="platform">Nền tảng <span>*</span></label>
+                        <select id="platform" name="platform" required>
+                            <option value="">Chọn nền tảng</option>
+                            <option>Trình duyệt</option>
+                            <option>Windows</option>
+                            <option>macOS</option>
+                            <option>Linux</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="gameUrl">Đường dẫn game <span>*</span></label>
+                <input id="gameUrl" name="gameUrl" type="url" placeholder="https://example.com/my-game" required>
+                <p class="input-note">Đường dẫn để người chơi có thể truy cập hoặc tải game của bạn.</p>
+            </section>
+
+            <section class="form-card" aria-labelledby="cover-title">
+                <div class="card-heading">
+                    <span class="step">02</span>
+                    <div>
+                        <h2 id="cover-title">Ảnh đại diện</h2>
+                        <p>Ảnh giúp game của bạn nổi bật hơn.</p>
+                    </div>
+                </div>
+
+                <label class="drop-zone" id="dropZone" for="coverImage">
+                    <input id="coverImage" name="coverImage" type="file" accept="image/png,image/jpeg,image/webp">
+                    <span class="upload-icon" aria-hidden="true">↥</span>
+                    <strong>Kéo thả ảnh vào đây</strong>
+                    <span>hoặc <em>chọn ảnh từ máy tính</em></span>
+                    <small>PNG, JPG hoặc WEBP · tối đa 5MB</small>
+                </label>
+                <div class="image-preview" id="imagePreview" hidden>
+                    <img id="previewImage" alt="Ảnh xem trước của game">
+                    <button id="removeImage" type="button" class="remove-image">Xóa ảnh</button>
+                </div>
+                <p class="upload-error" id="uploadError" role="alert"></p>
+
+                <label for="gameTags">Thẻ tìm kiếm</label>
+                <input id="gameTags" name="gameTags" type="text" maxlength="100" placeholder="Ví dụ: indie, pixel, multiplayer">
+                <p class="input-note">Ngăn cách các thẻ bằng dấu phẩy để người chơi dễ tìm thấy game.</p>
+            </section>
+
+            <div class="form-actions">
+                <p class="required-note"><span>*</span> Trường bắt buộc</p>
+                <div>
+                    <a class="cancel-button" href="index.html">Hủy</a>
+                    <button class="submit-button" type="submit">Đăng game lên GameX <span aria-hidden="true">→</span></button>
+                </div>
+            </div>
+            <p class="form-message" id="formMessage" role="status" aria-live="polite"></p>
+        </form>
+    </main>
+
+    <footer class="site-footer">
+        <span>🎮 GameX</span>
+        <small>Chia sẻ game, kết nối cộng đồng.</small>
+    </footer>
+    <script src="Js/upload.js" defer></script>
+</body>
+</html>

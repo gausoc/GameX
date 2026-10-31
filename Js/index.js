@@ -1,17 +1,28 @@
 // API danh sách game và số thẻ hiển thị trong mỗi lần tải.
 const API_URL = "https://www.mmobomb.com/api1/games";
-const PAGE_SIZE = 24;
+const PAGE_SIZE = 8;
+const LOCAL_GAMES_KEY = "gameX:uploadedGames";
 
 // Các phần tử giao diện cần cập nhật khi tìm kiếm, sắp xếp hoặc tải dữ liệu.
 const gameGrid = document.getElementById("gameGrid");
 const gameSearch = document.getElementById("gameSearch");
 const resultCount = document.getElementById("resultCount");
 const sortButtons = document.querySelectorAll(".sort-button");
-const loadMoreButton = document.getElementById("loadMore");
+const pagination = document.getElementById("pagination");
 
 let allGames = [];
 let sortBy = "newest";
-let shownGames = PAGE_SIZE;
+let currentPage = 1;
+
+function getLocalGames() {
+    try {
+        const storedGames = JSON.parse(localStorage.getItem(LOCAL_GAMES_KEY) || "[]");
+        return Array.isArray(storedGames) ? storedGames : [];
+    } catch (error) {
+        console.error("Không thể đọc game đã upload:", error);
+        return [];
+    }
+}
 
 // Chuẩn hóa chữ tiếng Việt để tìm kiếm không phân biệt dấu và chữ hoa/thường.
 function normalizeSearchText(value) {
@@ -39,6 +50,57 @@ function showMessage(message, showRetry = false) {
         retryButton.addEventListener("click", loadGames);
         gameGrid.appendChild(retryButton);
     }
+
+}
+
+function renderPagination(totalGames) {
+    const totalPages = Math.ceil(totalGames / PAGE_SIZE);
+    pagination.replaceChildren();
+    pagination.hidden = totalPages <= 1;
+
+    if (totalPages <= 1) return;
+
+    const createPageButton = (label, page, disabled = false, current = false, ariaLabel = `Trang ${page}`) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "page-button";
+        button.textContent = label;
+        button.disabled = disabled;
+        button.setAttribute("aria-label", ariaLabel);
+        if (current) button.setAttribute("aria-current", "page");
+        button.addEventListener("click", () => {
+            currentPage = page;
+            renderGames();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+        return button;
+    };
+
+    const addEllipsis = () => {
+        const ellipsis = document.createElement("span");
+        ellipsis.className = "pagination-ellipsis";
+        ellipsis.textContent = "...";
+        pagination.appendChild(ellipsis);
+    };
+
+    const pages = [1];
+    const startPage = Math.max(2, currentPage - 1);
+    const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+    if (startPage > 2) pages.push("ellipsis-start");
+    for (let page = startPage; page <= endPage; page += 1) pages.push(page);
+    if (endPage < totalPages - 1) pages.push("ellipsis-end");
+    if (totalPages > 1) pages.push(totalPages);
+
+    pagination.appendChild(createPageButton("←", currentPage - 1, currentPage === 1, false, "Trang trước"));
+    pages.forEach((page) => {
+        if (typeof page === "string") {
+            addEllipsis();
+            return;
+        }
+        pagination.appendChild(createPageButton(String(page), page, false, page === currentPage));
+    });
+    pagination.appendChild(createPageButton("→", currentPage + 1, currentPage === totalPages, false, "Trang sau"));
 }
 
 // Tạo thẻ game và lưu dữ liệu hiện tại trước khi điều hướng đến trang chi tiết.
@@ -48,6 +110,7 @@ function createGameCard(game) {
 
     const link = document.createElement("a");
     link.href = `detail.html?id=${encodeURIComponent(game.id)}`;
+    link.className = "game-card-link";
     link.addEventListener("click", () => {
         try {
             sessionStorage.setItem("gameX:selectedGame", JSON.stringify(game));
@@ -59,15 +122,19 @@ function createGameCard(game) {
 
     const cover = document.createElement("div");
     cover.className = "game-cover";
-    const image = document.createElement("img");
-    image.src = game.thumbnail;
-    image.alt = game.title;
-    image.loading = "lazy";
-    image.addEventListener("error", () => {
-        image.remove();
+    if (typeof game.thumbnail === "string" && game.thumbnail) {
+        const image = document.createElement("img");
+        image.src = game.thumbnail;
+        image.alt = game.title;
+        image.loading = "lazy";
+        image.addEventListener("error", () => {
+            image.remove();
+            cover.textContent = "🎮";
+        }, { once: true });
+        cover.appendChild(image);
+    } else {
         cover.textContent = "🎮";
-    }, { once: true });
-    cover.appendChild(image);
+    }
 
     const info = document.createElement("div");
     info.className = "game-info";
@@ -136,12 +203,14 @@ function renderGames() {
             (Number.isNaN(firstDate) ? 0 : firstDate);
     });
 
-    const gamesToShow = matchingGames.slice(0, shownGames);
+    const startIndex = (currentPage - 1) * PAGE_SIZE;
+    const gamesToShow = matchingGames.slice(startIndex, startIndex + PAGE_SIZE);
     gameGrid.replaceChildren(...gamesToShow.map(createGameCard));
-    resultCount.textContent = `Hiển thị ${gamesToShow.length} / ${matchingGames.length} game`;
-    loadMoreButton.hidden = gamesToShow.length >= matchingGames.length;
+    resultCount.textContent = `Trang ${currentPage} · Hiển thị ${gamesToShow.length} / ${matchingGames.length} game`;
+    renderPagination(matchingGames.length);
 
     if (matchingGames.length === 0) {
+        pagination.hidden = true;
         showMessage("Không tìm thấy game phù hợp.");
     }
 }
@@ -149,7 +218,7 @@ function renderGames() {
 // Lấy dữ liệu game từ API, kiểm tra định dạng và hiển thị lỗi có thể thử lại.
 async function loadGames() {
     resultCount.textContent = "Đang tải game...";
-    loadMoreButton.hidden = true;
+    pagination.hidden = true;
     showMessage("Đang tải game...");
 
     try {
@@ -163,7 +232,7 @@ async function loadGames() {
             throw new Error("Dữ liệu game từ API không hợp lệ.");
         }
 
-        allGames = games.filter((game) =>
+        const apiGames = games.filter((game) =>
             game &&
             typeof game.title === "string" &&
             typeof game.thumbnail === "string" &&
@@ -171,6 +240,7 @@ async function loadGames() {
             game.thumbnail.startsWith("https://") &&
             game.game_url.startsWith("https://")
         );
+        allGames = [...getLocalGames(), ...apiGames];
 
         if (allGames.length === 0) {
             resultCount.textContent = "Không có game";
@@ -178,10 +248,17 @@ async function loadGames() {
             return;
         }
 
-        shownGames = PAGE_SIZE;
+        currentPage = 1;
         renderGames();
     } catch (error) {
         console.error("Không thể tải danh sách game:", error);
+        allGames = getLocalGames();
+        if (allGames.length > 0) {
+            currentPage = 1;
+            renderGames();
+            return;
+        }
+
         resultCount.textContent = "Không tải được game";
         showMessage("Không thể kết nối tới API game. Hãy kiểm tra mạng rồi thử lại.", true);
     }
@@ -189,7 +266,7 @@ async function loadGames() {
 
 // Mỗi lần tìm kiếm bắt đầu hiển thị lại từ trang kết quả đầu tiên.
 gameSearch.addEventListener("input", () => {
-    shownGames = PAGE_SIZE;
+    currentPage = 1;
     renderGames();
 });
 
@@ -197,7 +274,7 @@ gameSearch.addEventListener("input", () => {
 sortButtons.forEach((button) => {
     button.addEventListener("click", () => {
         sortBy = button.dataset.sort;
-        shownGames = PAGE_SIZE;
+        currentPage = 1;
 
         sortButtons.forEach((sortButton) => {
             const isActive = sortButton === button;
@@ -207,12 +284,6 @@ sortButtons.forEach((button) => {
 
         renderGames();
     });
-});
-
-// Mở rộng số lượng kết quả hiển thị theo từng đợt.
-loadMoreButton.addEventListener("click", () => {
-    shownGames += PAGE_SIZE;
-    renderGames();
 });
 
 // Tải danh sách lần đầu khi script khởi chạy.

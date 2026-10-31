@@ -2,6 +2,7 @@
 const API_URL = "https://www.mmobomb.com/api1/game";
 const selectedGameKey = "gameX:selectedGame";
 const gamesKey = "gameX:games";
+const uploadedGamesKey = "gameX:uploadedGames";
 
 const detailsContainer = document.getElementById("gameDetails");
 const gameId = new URLSearchParams(window.location.search).get("id");
@@ -23,6 +24,18 @@ function getStoredGame(key) {
         console.error("Không thể đọc dữ liệu game đã lưu:", error);
         return null;
     }
+
+}
+
+function getUploadedGame(id) {
+    try {
+        const uploadedGames = JSON.parse(localStorage.getItem(uploadedGamesKey) || "[]");
+        if (!Array.isArray(uploadedGames)) return null;
+        return uploadedGames.find((game) => String(game.id) === String(id)) || null;
+    } catch (error) {
+        console.error("Không thể đọc game đã upload:", error);
+        return null;
+    }
 }
 
 // Hiển thị ngày theo định dạng tiếng Việt, giữ nguyên giá trị nếu không phân tích được.
@@ -37,7 +50,8 @@ function formatDate(value) {
 // Tạo ảnh bìa khi URL hợp lệ; dùng biểu tượng thay thế nếu ảnh không tải được.
 function createCover(game) {
     const cover = createElement("div", "cover");
-    if (typeof game.thumbnail === "string" && game.thumbnail.startsWith("https://")) {
+    if (typeof game.thumbnail === "string" &&
+        (game.thumbnail.startsWith("https://") || game.thumbnail.startsWith("data:image/"))) {
         const image = document.createElement("img");
         image.src = game.thumbnail;
         image.alt = `Ảnh bìa game ${game.title}`;
@@ -172,6 +186,12 @@ async function loadGameDetails() {
     const storedGame = getStoredGame(selectedGameKey);
     if (storedGame && String(storedGame.id) === String(gameId)) {
         renderGame(storedGame);
+        return;
+    }
+
+    const uploadedGame = getUploadedGame(gameId);
+    if (uploadedGame) {
+        renderGame(uploadedGame);
         return;
     }
 

@@ -175,12 +175,19 @@ h1 {
 }
 
 .game-card a {
+    display: block;
     color: inherit;
     text-decoration: none;
 }
 
+.game-card-link {
+    display: flex !important;
+    flex-direction: column;
+}
+
 .game-cover {
     display: grid;
+    flex: 0 0 150px;
     height: 150px;
     place-items: center;
     background: #253d62;
@@ -194,7 +201,14 @@ h1 {
 }
 
 .game-info {
+    position: relative !important;
+    inset: auto !important;
+    flex: 0 0 auto;
+    display: block;
+    width: 100%;
+    min-height: 105px;
     padding: 10px;
+    background: white;
 }
 
 .game-info h2 {
@@ -249,6 +263,49 @@ h1 {
 
 .load-more[hidden] {
     display: none;
+}
+
+.pagination {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: 24px 0 4px;
+}
+
+.pagination[hidden] {
+    display: none;
+}
+
+.page-button {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    border: 1px solid #e3e8ee;
+    border-radius: 6px;
+    background: #fff;
+    color: #59677a;
+}
+
+.page-button:hover:not(:disabled),
+.page-button[aria-current="page"] {
+    border-color: #3c5ee8;
+    background: #3c5ee8;
+    color: #fff;
+}
+
+.page-button:disabled {
+    cursor: not-allowed;
+    opacity: .45;
+}
+
+.pagination-ellipsis {
+    display: grid;
+    min-width: 25px;
+    height: 34px;
+    place-items: center;
+    color: #718096;
 }
 
 /* Điều chỉnh số cột danh sách cho máy tính bảng. */
